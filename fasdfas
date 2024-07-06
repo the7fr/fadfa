@@ -1,0 +1,35 @@
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+
+-- Functions to set WalkSpeed and JumpPower
+local function setWalkSpeed(walkSpeed)
+    local humanoid = Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+    if humanoid then
+        humanoid.WalkSpeed = tonumber(walkSpeed) or 16  
+        print("WalkSpeed set to " .. humanoid.WalkSpeed)
+    end
+end
+
+local function setJumpPower(jumpPower)
+    local humanoid = Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+    if humanoid then
+        humanoid.JumpPower = tonumber(jumpPower) or 50  -- Default to 50 if invalid number
+        print("JumpPower set to " .. humanoid.JumpPower)
+    end
+end
+
+local function toggleOff()
+    setWalkSpeed(16)  -- Default WalkSpeed
+    setJumpPower(50)  -- Default JumpPower
+    print("WalkSpeed and JumpPower reset to default values")
+end
+
+UserInputService.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.E then
+        setWalkSpeed(20)  -- Set WalkSpeed to 20
+    elseif input.KeyCode == Enum.KeyCode.Q then
+        setJumpPower(120)  -- Set JumpPower to 120
+    elseif input.KeyCode == Enum.KeyCode.T then
+        toggleOff()  
+    end
+end)
